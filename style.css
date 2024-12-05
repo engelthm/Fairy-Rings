@@ -283,6 +283,7 @@ a, a:hover {
 
 /* BIOLUMINESCENCE */
 .biolum svg {
+  display: none;
   stroke-width: 1px;
   stroke: var(--accent);
   filter: drop-shadow(0 0 5px var(--accent));
@@ -457,10 +458,10 @@ img#rock {
   align-content: center; 
   z-index: -1;
 }
-.two .panel_text, .three .panel_text {
+.one_text, .two .panel_text, .three .panel_text {
   margin: 0 0 -25vh;
 }
-.one, .two, .three {
+.one_text h2, .one_text h4, .one_text p, .two .panel_text h2, .two .panel_text h4, .two .panel_text p, .three .panel_text h2, .three .panel_text h4,.three .panel_text p, .one, .two, .three {
   visibility: hidden;
   opacity: 0;
 }
@@ -472,9 +473,6 @@ img#rock {
 }
 
 /* Panel one */
-.one_text {
-  margin: 0 0 -25vh;
-}
 .one_ring {
   display: grid;
   grid-template-columns: 1fr;
@@ -551,25 +549,23 @@ img#rock {
 .more {
   position: relative;
   width: 100vw;
-  height: 110vh;
-  overflow: hidden;
-  background-image: url("Assets/Images/landing 2 extension flipped.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center -50%;
+  height: 100vh;
+}
+.more .panel {
+  visibility: hidden;
+  opacity: 0;
 }
 .more .panel_img {
   position: absolute;
   top: 0;
   width: 100%;
-  padding: 0 2.5vw;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
 }
 .more .panel_img img {
-  width: 35vw;
+  width: 40vw;
   height: auto;
   clip-path: circle(0 at 50% 0%);
 }

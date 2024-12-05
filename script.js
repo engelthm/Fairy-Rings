@@ -154,6 +154,7 @@ document.querySelector("#load_enter").addEventListener("click", e => {
 const oneText = gsap.utils.toArray([".one_text h2", ".one_text h4", ".one_text p"])
 const twoText = gsap.utils.toArray([".two .panel_text h2", ".two .panel_text h4", ".two .panel_text p"])
 const threeText = gsap.utils.toArray([".three .panel_text h2", ".three .panel_text h4", ".three .panel_text p"])
+const moreText = gsap.utils.toArray([".more .panel_text h2", ".more .panel_text h4", ".more .panel_text p", ".more .panel_text button"])
 
 const panelText = gsap.utils.toArray([oneText, twoText, threeText]);
 const panels = gsap.utils.toArray(".one", ".two", ".three");
@@ -162,7 +163,7 @@ const panels = gsap.utils.toArray(".one", ".two", ".three");
 ScrollTrigger.create({
   trigger: ".feature", 
   start: () => `bottom bottom`,
-  end: "+=750%",
+  end: "+=400%",
   scrub: true,
   pin: true
 });
@@ -170,16 +171,18 @@ ScrollTrigger.create({
 var panelAnim = gsap.timeline({
   ease: "power4.inOut",
   scrollTrigger: {
-    trigger: ".panel.one", 
     pinnedContainer: ".feature",
-    start: "top top+=35%",
-    end: "+=750%",
-    scrub: true,
-    toggleActions: "play reverse play reverse"
+    trigger: ".panel.one", 
+    start: "top top+=70%",
+    end: "+=500%",
+    scrub: 0.2,
+    toggleActions: "play reverse play reverse", 
+    markers: true, 
+    id: "panel"
   }
 })
 
-// Mushroom ring
+// Panel content
 panelAnim.fromTo(".one", {
   autoAlpha: 0,
   duration: 2.5
@@ -198,7 +201,7 @@ oneText.forEach(texts => {
   });
 }, 1);
 
-function mushRing(ring, rotateStart, rotateEnd, timing) {
+function mushRing(ring, rotateStart, rotateEnd) {
   panelAnim.fromTo(ring, {
     scale: 0, 
     rotation: rotateStart, 
@@ -207,53 +210,30 @@ function mushRing(ring, rotateStart, rotateEnd, timing) {
     scale: 1,
     rotation: rotateEnd,
     autoAlpha: 1,
-  }, timing);
-}
-
-function mushRingReverse(ring, rotateStart, rotateEnd, timing) {
-  panelAnim.fromTo(ring, {
-    scale: 1, 
-    rotation: rotateStart, 
-    autoAlpha: 0
-  }, {
-    scale: 0,
-    rotation: rotateEnd,
-    autoAlpha: 1,
-  }, timing);
-}
-
-mushRing(".ring.big", -72, 36, 1.75)
-mushRing(".ring.medium", 120, -60, 2.5)
-mushRing(".ring.small", -30, 15, 3.25)
-
-mushRingReverse(".ring.big", 36, -72, 5)
-mushRingReverse(".ring.medium", -60, 120, 5.5)
-mushRingReverse(".ring.small", 15, -30, 6)
-
-oneText.forEach(texts => {
-  panelAnim.fromTo(texts, {
-    autoAlpha: 1, 
-    y: 0,
-    stagger: 0.125
-  }, {
-    autoAlpha: 0, 
-    y: 50,
   });
-}, 5.5);
+}
+
+mushRing(".ring.big", -72, 36)
+mushRing(".ring.medium", 120, -60)
+mushRing(".ring.small", -30, 15)
 
 panelAnim.fromTo(".one", {
   autoAlpha: 1,
+  y: 0,
   duration: 2.5
 }, {
-  autoAlpha: 0
-}, 7.5);
+  autoAlpha: 0,
+  y: 250
+}, 5);
 
 panelAnim.fromTo(".two", {
   autoAlpha: 0,
+  y: 250,
   duration: 2.5
 }, {
-  autoAlpha: 1
-}, 7.5);
+  autoAlpha: 1,
+  y: 0
+}, 5.5);
 
 twoText.forEach(texts => {
   panelAnim.fromTo(texts, {
@@ -264,50 +244,32 @@ twoText.forEach(texts => {
     autoAlpha: 1, 
     y: 0,
   });
-}, 8.5);
+}, 6.5);
 
 panelAnim.fromTo(".two .panel_img", {
-  clipPath: "circle(0 at 50% 100%)"
+  clipPath: "circle(0 at 50% 100%)", 
+  duration: 5
 }, {
   clipPath: "circle(100% at 50% 100%)"
-}, 8.5);
-
-panelAnim.fromTo(".two .panel_img", {
-  clipPath: "circle(100% at 50% 100%)"
-}, {
-  clipPath: "circle(0 at 50% 100%)"
-}, 10.5);
-
-twoText.forEach(texts => {
-  panelAnim.fromTo(texts, {
-    autoAlpha: 1, 
-    y: 0,
-    stagger: 0.125
-  }, {
-    autoAlpha: 0, 
-    y: 50,
-  });
-}, 10.5);
+}, 6.5);
 
 panelAnim.fromTo(".two", {
   autoAlpha: 1,
+  y: 0,
   duration: 2.5
 }, {
-  autoAlpha: 0
-},12.5);
+  autoAlpha: 0,
+  y: 250
+}, 11);
 
 panelAnim.fromTo(".three", {
   autoAlpha: 0,
+  y: 250,
   duration: 2.5
 }, {
-  autoAlpha: 1
-}, 14.5);
-
-panelAnim.fromTo(".three .panel_img", {
-  clipPath: "circle(0 at 50% 100%)"
-}, {
-  clipPath: "circle(100% at 50% 100%)"
-}, 16.5);
+  autoAlpha: 1,
+  y: 0
+}, 11.5);
 
 threeText.forEach(texts => {
   panelAnim.fromTo(texts, {
@@ -318,30 +280,68 @@ threeText.forEach(texts => {
     autoAlpha: 1, 
     y: 0,
   });
-}, 16.5);
+}, 12);
+
+panelAnim.fromTo(".three .panel_img", {
+  clipPath: "circle(0 at 50% 100%)", 
+  duration: 5
+}, {
+  clipPath: "circle(100% at 50% 100%)"
+}, 12);
+
+panelAnim.fromTo(".feature", {
+  autoAlpha: 1,
+  y: 0,
+  duration: 2.5
+}, {
+  autoAlpha: 0,
+  y: 250
+}, 17);
 
 // More
 var moreAnim = gsap.timeline({
-  ease: "expo.inOut",
+  ease: "power4.inOut",
   scrollTrigger: {
-    trigger: ".more", 
+    trigger: ".content.more", 
     start: "top top",
     scrub: false,
     pin: true, 
-    toggleActions: "play reverse play reverse",
+    toggleActions: "play reverse none none",
+    markers: true, 
+    id: "more"
   }
 });
 
-moreAnim.to(".more .panel_img img", {
-  clipPath: "circle(200% at 50% 0%)", 
-  duration: 1
-});
+moreAnim.fromTo(".more .panel", {
+  autoAlpha: 0,
+  y: 250,
+  duration: 2.5
+}, {
+  autoAlpha: 1,
+  y: 0
+}, 0);
 
 moreAnim.from(".more .panel_text", {
   autoAlpha: 0, 
   y: 50,
   stagger: 0.0625
-}, 0);
+}, 0.5);
+
+moreText.forEach(texts => {
+  moreAnim.fromTo(texts, {
+    autoAlpha: 0, 
+    y: 50,
+    stagger: 0.125
+  }, {
+    autoAlpha: 1, 
+    y: 0,
+  });
+}, 1);
+
+moreAnim.to(".more .panel_img img", {
+  clipPath: "circle(200% at 50% 0%)", 
+  duration: 2.5
+}, 1);
 
 
 // BIOLUMINESCENCE
