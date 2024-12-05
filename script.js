@@ -149,47 +149,30 @@ document.querySelector("#load_enter").addEventListener("click", e => {
 });
 
 
-// MUSHROOM RINGS
-// ScrollTrigger for the features panels
-ScrollTrigger.create({
-  trigger: ".feature", 
-  start: () => `bottom bottom`,
-  end: "+=300%",
-  scrub: true,
-  pin: true, 
-  toggleActions: "play reverse play reverse",
-  markers: true,
-  id: "pin"
-});
-let mushroomRing = gsap.timeline({
-  ease: "power4.inOut",
+// FEATURE PANELS
+// Panel text
+const oneText = gsap.utils.toArray([".one_text h2", ".one_text h4", ".one_text p"])
+const twoText = gsap.utils.toArray([".two .panel_text h2", ".two .panel_text h4", ".two .panel_text p"])
+const threeText = gsap.utils.toArray([".three .panel_text h2", ".three .panel_text h4", ".three .panel_text p"])
+
+const panelText = gsap.utils.toArray([oneText, twoText, threeText]);
+const panels = gsap.utils.toArray(".one", ".two", ".three");
+
+var panelAnim = gsap.timeline({
+  ease: "expo.inOut",
   scrollTrigger: {
-    pinnedContainer: ".feature",
-    trigger: ".one_text", 
-    start: "top bottom-=12.5%",
-    // end: "top top",
-    scrub: false,
+    trigger: ".feature", 
+    start: () => `bottom bottom`,
+    end: "+=1000%",
+    scrub: 2,
+    pin: true, 
     toggleActions: "play reverse play reverse",
-    markers: true,
-    id: "mush"
   }
 });
 
-// Function for the text
-function mushText(content) {
-  mushroomRing.fromTo(content, {
-    autoAlpha: 0, 
-    y: 50
-  }, {
-    autoAlpha: 1, 
-    y: 0, 
-    stagger: 0.0625
-  });
-}
-
-// Function for the ring of mushrooms
+// Mushroom ring
 function mushRing(ring, rotateStart, rotateEnd) {
-  mushroomRing.fromTo(ring, {
+  panelAnim.fromTo(ring, {
     scale: 0, 
     rotation: rotateStart, 
     autoAlpha: 0
@@ -202,20 +185,101 @@ function mushRing(ring, rotateStart, rotateEnd) {
     }
   });
 }
+function mushRingReverse(ring, rotateStart, rotateEnd) {
+  panelAnim.fromTo(ring, {
+    scale: 1, 
+    rotation: rotateStart, 
+    autoAlpha: 1
+  }, {
+    scale: 0,
+    rotation: rotateEnd,
+    autoAlpha: 0,
+    stagger: 5
+  });
+}
 
-// Function for the still shrooms
-
-
-// Functions in action
-const oneText = gsap.utils.toArray([".one_text h4", ".one_text h2", ".one_text p"])
-
-mushText(oneText)
+panelAnim.to(".one", {
+  autoAlpha: 1, 
+  y: 0, 
+  duration: 2.5
+});
 
 mushRing(".ring.big", -36, 36)
 mushRing(".ring.medium", 60, -60)
 mushRing(".ring.small", -15, 15)
 
-// mushStill(".two .panel_img")
+panelText.forEach(texts => {
+  panelAnim.from(texts, {
+    autoAlpha: 0, 
+    y: 50,
+    stagger: 0.0625
+  });
+}, 0);
+
+panelText.forEach(texts => {
+  panelAnim.from(texts, {
+    autoAlpha: 1, 
+    y: 0,
+    stagger: 0.0625
+  });
+});
+
+mushRingReverse(".ring.big", 36, -36)
+mushRingReverse(".ring.medium", -60, 60)
+mushRingReverse(".ring.small", 15, -15)
+
+panelAnim.to(".one", {
+  autoAlpha: 0, 
+  y: 50,
+  delay: 2.5
+});
+
+function panelWhole(panelName, mushStill) {
+  panelAnim.to(panelName, {
+    autoAlpha: 1, 
+    y: 0,
+    stagger: 5
+  });
+  panelAnim.to(mushStill, {
+    clipPath: "circle(100% at 50% 100%)", 
+    duration: 5
+  }, 0);
+  panelAnim.to(panelName, {
+    autoAlpha: 0, 
+    y: 50,
+    stagger: 5
+  });
+  panelAnim.to(mushStill, {
+    clipPath: "circle(0% at 50% 100%)", 
+    duration: 5
+  }, 0);
+}
+
+panelWhole(".two", ".two .panel_img")
+
+panelWhole(".three", ".three .panel_img")
+
+var moreAnim = gsap.timeline({
+  ease: "expo.inOut",
+  scrollTrigger: {
+    trigger: ".more", 
+    start: "top top",
+    scrub: false,
+    pin: true, 
+    toggleActions: "play reverse play reverse",
+  }
+});
+
+moreAnim.to(".more .panel_img img", {
+  clipPath: "circle(200% at 50% 0%)", 
+  duration: 1
+});
+
+moreAnim.from(".more .panel_text", {
+  autoAlpha: 0, 
+  y: 50,
+  stagger: 0.0625
+}, 0);
 
 
 // BIOLUMINESCENCE
@@ -226,6 +290,7 @@ const biolumPlay = gsap.timeline({paused:true});
 
 const heroBiolum = gsap.utils.toArray("#hero_biolum");
 const infoBiolum = gsap.utils.toArray("#info_biolum");
+const moreBiolum = gsap.utils.toArray("#more_biolum");
 
 const heroMove = gsap.timeline().from(heroBiolum, {
   ease: "power4.inOut", 
@@ -237,23 +302,23 @@ const heroMove = gsap.timeline().from(heroBiolum, {
 });
 biolumPlay.add(heroMove)
 
-const infoMove = gsap.timeline().from(infoBiolum, {
-  scrollTrigger: {
-    trigger: ".one_text", 
-    start: "center center+=25%",
-    end: "center top",
-    pin: false, 
-    scrub: false,
-    repeat: false,
-    toggleActions: "play reverse play reverse",
-    markers: "true", 
-    id: "biolum"
-  },
-  ease: "power4.inOut", 
-  drawSVG: 0,
-  stagger: true
-}, 0.125);
-biolumPlay.add(infoMove)
+// const infoMove = gsap.timeline().from(infoBiolum, {
+//   scrollTrigger: {
+//     trigger: ".one_text", 
+//     start: "center center+=25%",
+//     end: "center top",
+//     pin: false, 
+//     scrub: false,
+//     repeat: false,
+//     toggleActions: "play reverse play reverse",
+//     markers: "true", 
+//     id: "biolum"
+//   },
+//   ease: "power4.inOut", 
+//   drawSVG: 0,
+//   stagger: true
+// }, 0.125);
+// biolumPlay.add(infoMove)
 
 shroom.addEventListener("click", () => {
   if (!shroom.classList.contains("active")) {
