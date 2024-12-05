@@ -149,6 +149,29 @@ document.querySelector("#load_enter").addEventListener("click", e => {
 });
 
 
+// BIOLUMINESCENCE
+const body = document.querySelector("body");
+const particles = document.querySelector("#particles-js");
+const shroom = document.querySelector("#glow");
+const biolumPlay = gsap.timeline({paused:true});
+
+const heroBiolum = gsap.utils.toArray("#hero_biolum");
+const infoBiolum = gsap.utils.toArray("#info_biolum");
+const twoBiolum = gsap.utils.toArray("#two_biolum");
+const threeBiolum = gsap.utils.toArray("#three_biolum");
+const moreBiolum = gsap.utils.toArray("#more_biolum");
+
+const heroMove = gsap.timeline().from(heroBiolum, {
+  ease: "power4.inOut", 
+  drawSVG: 0,
+  stagger: {
+    amount: 1.25,
+    from: "random",
+  }
+});
+biolumPlay.add(heroMove)
+
+
 // FEATURE PANELS
 // Panel text
 const oneText = gsap.utils.toArray([".one_text h2", ".one_text h4", ".one_text p"])
@@ -216,6 +239,13 @@ mushRing(".ring.big", -72, 36)
 mushRing(".ring.medium", 120, -60)
 mushRing(".ring.small", -30, 15)
 
+const infoMove = gsap.timeline().from(infoBiolum, {
+  ease: "power4.inOut", 
+  drawSVG: 0,
+  stagger: true
+}, 0.125);
+biolumPlay.add(infoMove)
+
 panelAnim.fromTo(".one", {
   autoAlpha: 1,
   y: 0,
@@ -252,6 +282,22 @@ panelAnim.fromTo(".two .panel_img", {
   clipPath: "circle(100% at 50% 100%)"
 }, 6.5);
 
+const twoMove = gsap.timeline().from(twoBiolum, {
+  ease: "power4.inOut", 
+  drawSVG: 0,
+  stagger: {
+    amount: 1.25,
+    from: "random",
+  }, 
+  scrollTrigger: {
+    pinnedContainer: ".feature",
+    trigger: ".panel.two", 
+    start: "top top",
+    scrub: false
+  }
+}, 6.5);
+biolumPlay.add(twoMove)
+
 panelAnim.fromTo(".two", {
   autoAlpha: 1,
   y: 0,
@@ -287,6 +333,22 @@ panelAnim.fromTo(".three .panel_img", {
 }, {
   clipPath: "circle(100% at 50% 100%)"
 }, 12);
+
+const threeMove = gsap.timeline().from(threeBiolum, {
+  ease: "power4.inOut", 
+  drawSVG: 0,
+  stagger: {
+    amount: 1.25,
+    from: "random",
+  }, 
+  scrollTrigger: {
+    pinnedContainer: ".feature",
+    trigger: ".panel.three", 
+    start: "top top",
+    scrub: false
+  }
+}, 12);
+biolumPlay.add(threeMove)
 
 panelAnim.fromTo(".feature", {
   autoAlpha: 1,
@@ -363,46 +425,25 @@ moreImg.forEach(img => {
   }, 0);
 }, 5);
 
-
-// BIOLUMINESCENCE
-const body = document.querySelector("body");
-const particles = document.querySelector("#particles-js");
-const shroom = document.querySelector("#glow");
-const biolumPlay = gsap.timeline({paused:true});
-
-const heroBiolum = gsap.utils.toArray("#hero_biolum");
-const infoBiolum = gsap.utils.toArray("#info_biolum");
-const featBiolum = gsap.utils.toArray("#feat_biolum");
-const moreBiolum = gsap.utils.toArray("#more_biolum");
-
-const heroMove = gsap.timeline().from(heroBiolum, {
+const moreMove = gsap.timeline().from(moreBiolum, {
   ease: "power4.inOut", 
   drawSVG: 0,
   stagger: {
     amount: 1.25,
     from: "random",
+  }, 
+  scrollTrigger: {
+    pinnedContainer: ".more",
+    trigger: ".panel.more", 
+    start: "top top",
+    scrub: false,
+    toggleActions: "play none none none"
   }
 });
-biolumPlay.add(heroMove)
+biolumPlay.add(moreMove)
 
-// const infoMove = gsap.timeline().from(infoBiolum, {
-//   scrollTrigger: {
-//     trigger: ".one_text", 
-//     start: "center center+=25%",
-//     end: "center top",
-//     pin: false, 
-//     scrub: false,
-//     repeat: false,
-//     toggleActions: "play reverse play reverse",
-//     markers: "true", 
-//     id: "biolum"
-//   },
-//   ease: "power4.inOut", 
-//   drawSVG: 0,
-//   stagger: true
-// }, 0.125);
-// biolumPlay.add(infoMove)
 
+// PARTICLES.JS AND BIOLUM PLAY 
 shroom.addEventListener("click", () => {
   if (!shroom.classList.contains("active")) {
     biolumPlay.play();
@@ -417,8 +458,6 @@ shroom.addEventListener("click", () => {
   }
 });
 
-
-// PARTICLES.JS
 particlesJS("particles-js", {
   particles: {
     number: { value: 250, density: { enable: true, value_area: 800 } },
@@ -440,11 +479,7 @@ particlesJS("particles-js", {
       anim: { enable: false, speed: 0, size_min: 0.1, sync: false }
     },
     line_linked: {
-      enable: false,
-      distance: 150,
-      color: "#ffffff",
-      opacity: 0.4,
-      width: 1
+      enable: false
     },
     move: {
       enable: true,

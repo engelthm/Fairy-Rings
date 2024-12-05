@@ -284,17 +284,17 @@ a, a:hover {
 
 /* BIOLUMINESCENCE */
 .biolum svg {
-  display: none;
+  fill: none;
   stroke-width: 1px;
   stroke: var(--accent);
   filter: drop-shadow(0 0 5px var(--accent));
 }
 #particles-js {
-  display: none;
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: none;
+  visibility: hidden;
+  background-color: transparent;
   -webkit-transition: display 0.5s;
   -moz-transition: display 0.5s;
   -o-transition: display 0.5s;
@@ -302,7 +302,7 @@ a, a:hover {
   z-index: 9;
 }
 #particles-js.active {
-  display: block!important;
+  visibility: visible;
   -webkit-transition: display 0.5s;
   -moz-transition: display 0.5s;
   -o-transition: display 0.5s;
@@ -466,10 +466,21 @@ img#rock {
   visibility: hidden;
   opacity: 0;
 }
-.two .panel_img, .three .panel_img {
+.two .panel_img {
   width: auto;
-  height: 40vh;
-  padding: 0 10vw 0 0;
+  height: 75vh;
+  padding: 15vh 10vw 0 0;
+}
+.three .panel_img {
+  width: auto;
+  height: 100vh;
+  padding: 15vh 10vw 0 0;
+}
+.panel_img img {
+  height: 100%;
+  width: auto;
+  position: relative;
+  z-index: 10!important;
 }
 
 /* Panel one */
@@ -513,14 +524,15 @@ img#rock {
   object-fit: cover;
 }
 
-/* Hero - Info, Biolum */
+/* Panel one biolum */
 .one.biolum svg {
+  display: none;
   position: absolute;
   height: auto;
 }
 .one.biolum svg:nth-child(1) {
   width: calc(var(--base) * 22.5);
-  top: 125px;
+  top: 0;
   left: 75px;
 }
 .one.biolum svg:nth-child(2) {
@@ -539,11 +551,31 @@ img#rock {
   left: 75px;
 }
 .one.biolum svg:nth-child(5) {
+  display: none;
   width: calc(var(--base) * 20);
   bottom: -25px;
   right: 50px;
 }
 
+/* Panel two biolum */
+.two.biolum svg {
+  position: absolute;
+  bottom: -315px;
+  right: -220px;
+  height: 50vh;
+  width: auto;
+  z-index: 5!important;
+}
+
+/* Panel three biolum */
+.three.biolum svg {
+  position: absolute;
+  bottom: -250px;
+  right: -225px;
+  height: 52.5vh;
+  width: auto;
+  z-index: 5!important;
+}
 
 /* More */
 .more {
@@ -595,6 +627,22 @@ img#rock {
 .four.biolum svg#right {
   height: 42vh;
   right: 11%;
+}
+
+/* More panel biolum */
+.more.biolum svg {
+  position: absolute;
+  top: 0;
+  width: auto;
+  z-index: 15!important;
+}
+.more.biolum svg#left {
+  left: 49px;
+  height: 46vh;
+}
+.more.biolum svg#right {
+  right: 147.5px;
+  height: 42.5vh;
 }
 
 
