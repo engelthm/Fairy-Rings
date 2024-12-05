@@ -131,9 +131,6 @@ button#glow.active, button:hover#glow {
 button:hover#glow svg, button:hover#glow line, button:hover#glow path {
   stroke: var(--background);
 }
-#tsparticles {
-  z-index: 100!important;
-}
 
 /* Image styling */
 svg, line, path {
@@ -286,10 +283,28 @@ a, a:hover {
 
 /* BIOLUMINESCENCE */
 .biolum svg {
-  display: none;
   stroke-width: 1px;
   stroke: var(--accent);
   filter: drop-shadow(0 0 5px var(--accent));
+}
+#particles-js {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  -webkit-transition: display 0.5s;
+  -moz-transition: display 0.5s;
+  -o-transition: display 0.5s;
+  transition: display 0.5s;
+  z-index: 9;
+}
+#particles-js.active {
+  display: block;
+  -webkit-transition: display 0.5s;
+  -moz-transition: display 0.5s;
+  -o-transition: display 0.5s;
+  transition: display 0.5s;
 }
 
 
