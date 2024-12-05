@@ -434,10 +434,9 @@ const moreMove = gsap.timeline().from(moreBiolum, {
   }, 
   scrollTrigger: {
     pinnedContainer: ".more",
-    trigger: ".panel.more", 
+    trigger: ".panel.four", 
     start: "top top",
-    scrub: false,
-    toggleActions: "play none none none"
+    scrub: false
   }
 });
 biolumPlay.add(moreMove)
