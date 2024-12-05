@@ -45,6 +45,7 @@ body {
 }
 body.active {
   background-color: var(--dark);
+  background-image: url("Assets/Images/background dim.png");
 }
 
 /* Text styling */
@@ -301,7 +302,7 @@ a, a:hover {
   z-index: 9;
 }
 #particles-js.active {
-  display: block;
+  display: block!important;
   -webkit-transition: display 0.5s;
   -moz-transition: display 0.5s;
   -o-transition: display 0.5s;
@@ -469,7 +470,6 @@ img#rock {
   width: auto;
   height: 40vh;
   padding: 0 10vw 0 0;
-  /* clip-path: circle(0 at 50% 100%); */
 }
 
 /* Panel one */
@@ -548,14 +548,16 @@ img#rock {
 /* More */
 .more {
   position: relative;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 }
-.more .panel {
+.four {
   visibility: hidden;
   opacity: 0;
 }
-.more .panel_img {
+.four .panel_img {
   position: absolute;
   top: 0;
   width: 100%;
@@ -564,31 +566,33 @@ img#rock {
   justify-content: space-between;
   align-items: flex-start;
 }
-.more .panel_img img {
+.four .panel_img img {
   width: 40vw;
   height: auto;
   clip-path: circle(0 at 50% 0%);
 }
-.more .panel_text {
+.four .panel_text {
   position: absolute;
   left: calc((100vw - (100vw / 3.5)) / 2);
-  bottom: 20vh;
+  top: 55vh;
   text-align: center;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+  visibility: hidden;
+  opacity: 0;
 }
-.more.biolum svg {
+.four.biolum svg {
   position: absolute;
   width: auto;
   top: 0;
   z-index: 25
 }
-.more.biolum svg#left {
+.four.biolum svg#left {
   height: 45vh;
   left: 5.5%;
 }
-.more.biolum svg#right {
+.four.biolum svg#right {
   height: 42vh;
   right: 11%;
 }
@@ -599,6 +603,7 @@ img#rock {
   position: relative;
   width: 100vw;
   height: auto;
+  margin: 10vh 0 0;
   color: var(--background);
   background-color: var(--text);
 }

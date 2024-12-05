@@ -154,7 +154,8 @@ document.querySelector("#load_enter").addEventListener("click", e => {
 const oneText = gsap.utils.toArray([".one_text h2", ".one_text h4", ".one_text p"])
 const twoText = gsap.utils.toArray([".two .panel_text h2", ".two .panel_text h4", ".two .panel_text p"])
 const threeText = gsap.utils.toArray([".three .panel_text h2", ".three .panel_text h4", ".three .panel_text p"])
-const moreText = gsap.utils.toArray([".more .panel_text h2", ".more .panel_text h4", ".more .panel_text p", ".more .panel_text button"])
+const moreText = gsap.utils.toArray([".four .panel_text h2", ".more .panel_text h4", ".four .panel_text p", ".four .panel_text button"])
+const moreImg = gsap.utils.toArray(".four .panel_img img")
 
 const panelText = gsap.utils.toArray([oneText, twoText, threeText]);
 const panels = gsap.utils.toArray(".one", ".two", ".three");
@@ -163,7 +164,7 @@ const panels = gsap.utils.toArray(".one", ".two", ".three");
 ScrollTrigger.create({
   trigger: ".feature", 
   start: () => `bottom bottom`,
-  end: "+=400%",
+  end: "+=375%",
   scrub: true,
   pin: true
 });
@@ -176,9 +177,7 @@ var panelAnim = gsap.timeline({
     start: "top top+=70%",
     end: "+=500%",
     scrub: 0.2,
-    toggleActions: "play reverse play reverse", 
-    markers: true, 
-    id: "panel"
+    toggleActions: "play reverse play reverse"
   }
 })
 
@@ -298,32 +297,41 @@ panelAnim.fromTo(".feature", {
   y: 250
 }, 17);
 
-// More
+// More panel
+ScrollTrigger.create({
+  trigger: ".more", 
+  start: () => `top top`,
+  end: "+=100%",
+  scrub: true,
+  pin: true
+});
+
 var moreAnim = gsap.timeline({
   ease: "power4.inOut",
   scrollTrigger: {
-    trigger: ".content.more", 
-    start: "top top",
-    scrub: false,
-    pin: true, 
-    toggleActions: "play reverse none none",
-    markers: true, 
-    id: "more"
+    pinnedContainer: ".more",
+    trigger: ".panel.four", 
+    start: "top bottom",
+    scrub: 0.2,
+    toggleActions: "play none none none"
   }
 });
 
-moreAnim.fromTo(".more .panel", {
+moreAnim.fromTo(".four", {
   autoAlpha: 0,
   y: 250,
   duration: 2.5
 }, {
-  autoAlpha: 1,
+  autoAlpha: 1, 
   y: 0
-}, 0);
+});
 
-moreAnim.from(".more .panel_text", {
+moreAnim.fromTo(".four .panel_text", {
   autoAlpha: 0, 
   y: 50,
+}, {
+  autoAlpha: 1, 
+  y: 0,
   stagger: 0.0625
 }, 0.5);
 
@@ -336,23 +344,35 @@ moreText.forEach(texts => {
     autoAlpha: 1, 
     y: 0,
   });
-}, 1);
+}, 0.5);
 
-moreAnim.to(".more .panel_img img", {
-  clipPath: "circle(200% at 50% 0%)", 
-  duration: 2.5
-}, 1);
+moreImg.forEach(img => {
+  gsap.fromTo(img, {
+    clipPath: "circle(0 at 50% 0%)"
+  }, {
+    clipPath: "circle(200% at 50% 0%)", 
+    duration: 2.5, 
+    ease: "power4.inOut",
+    scrollTrigger: {
+      pinnedContainer: ".more",
+      trigger: ".panel.four", 
+      start: "top top+=25%",
+      scrub: 0.2,
+      toggleActions: "play none none none"
+    }
+  }, 0);
+}, 5);
 
 
 // BIOLUMINESCENCE
-// const body = document.querySelector("body");
-// const imgs = document.querySelector(".land_img img");
+const body = document.querySelector("body");
 const particles = document.querySelector("#particles-js");
 const shroom = document.querySelector("#glow");
 const biolumPlay = gsap.timeline({paused:true});
 
 const heroBiolum = gsap.utils.toArray("#hero_biolum");
 const infoBiolum = gsap.utils.toArray("#info_biolum");
+const featBiolum = gsap.utils.toArray("#feat_biolum");
 const moreBiolum = gsap.utils.toArray("#more_biolum");
 
 const heroMove = gsap.timeline().from(heroBiolum, {
@@ -389,13 +409,11 @@ shroom.addEventListener("click", () => {
     particles.classList.toggle("active");
     shroom.classList.toggle("active");
     body.classList.toggle("active");
-    // imgs.classList.toggle("active");
   } else {
     biolumPlay.reverse();
     particles.classList.toggle("active");
     shroom.classList.toggle("active");
     body.classList.toggle("active");
-    // imgs.classList.toggle("active");
   }
 });
 
@@ -412,7 +430,7 @@ particlesJS("particles-js", {
       image: { src: "img/github.svg", width: 100, height: 100 }
     },
     opacity: {
-      value: 0.5,
+      value: 0.75,
       random: false,
       anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
     },
