@@ -386,14 +386,14 @@ biolumPlay.add(heroMove)
 shroom.addEventListener("click", () => {
   if (!shroom.classList.contains("active")) {
     biolumPlay.play();
-    shroom.classList.toggle("active");
     particles.classList.toggle("active");
+    shroom.classList.toggle("active");
     body.classList.toggle("active");
     // imgs.classList.toggle("active");
   } else {
     biolumPlay.reverse();
-    shroom.classList.toggle("active");
     particles.classList.toggle("active");
+    shroom.classList.toggle("active");
     body.classList.toggle("active");
     // imgs.classList.toggle("active");
   }
