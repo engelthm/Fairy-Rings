@@ -293,7 +293,7 @@ const twoMove = gsap.timeline().from(twoBiolum, {
     pinnedContainer: ".feature",
     trigger: ".panel.two", 
     start: "top top",
-    scrub: false
+    scrub: 0.2
   }
 }, 6.5);
 biolumPlay.add(twoMove)
@@ -345,7 +345,7 @@ const threeMove = gsap.timeline().from(threeBiolum, {
     pinnedContainer: ".feature",
     trigger: ".panel.three", 
     start: "top top",
-    scrub: false
+    scrub: 0.2
   }
 }, 12);
 biolumPlay.add(threeMove)
@@ -435,10 +435,10 @@ const moreMove = gsap.timeline().from(moreBiolum, {
   scrollTrigger: {
     pinnedContainer: ".more",
     trigger: ".panel.four", 
-    start: "top top",
-    scrub: false
+    start: "top top+=25%",
+    scrub: 0.2
   }
-});
+}, 5);
 biolumPlay.add(moreMove)
 
 

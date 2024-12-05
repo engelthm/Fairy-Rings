@@ -284,6 +284,7 @@ a, a:hover {
 
 /* BIOLUMINESCENCE */
 .biolum svg {
+  display: none;
   fill: none;
   stroke-width: 1px;
   stroke: var(--accent);
